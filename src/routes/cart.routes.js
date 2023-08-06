@@ -25,12 +25,12 @@ router.post('/cart', async (req, res) => {
     }
 })
 
-router.put('/cart/:id', async (req, res) => {
-    const {id} = req.params;
-    const newProduct = req.body
+router.put('/cart/:id/product/:pid', async (req, res) => {
+    const {id,pid} = req.params;
+    // const newProduct = req.body
 
     try {
-        const response = await cartManager.addProductToCart(id, newProduct);
+        const response = await cartManager.addProductToCart(id, pid);
         res.send(response);
       } catch (err) {
         res.status(500).send(err.message);

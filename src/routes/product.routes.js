@@ -14,6 +14,19 @@ router.get('/product', async (req,res) => {
     }
 })
 
+router.get('/product/:id', async (req,res) => {
+    try{
+        const {id} = req.params;
+
+        const products = await productManger.getProductById(id)
+        res.send(products)
+    }
+    catch (err){
+        res.status(500).send(err.message);
+    }
+})
+
+
 router.post('/product', async (req,res) => {
     const newProduct = {
         ...req.body,

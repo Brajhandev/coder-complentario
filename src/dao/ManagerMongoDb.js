@@ -14,6 +14,18 @@ class ProductManger{
         }
     }
 
+
+    async getProductById(id){
+        try{
+            const products = await productModel.findOne({_id: id})
+            return products; 
+        }
+        catch(err){
+            throw err; 
+        }
+    }
+
+
     async createProduct(product) {
         try {
             const newProduct = new productModel(product);
@@ -68,9 +80,10 @@ class CartManager{
         }
     }
 
-    async addProductToCart(id, product){
+    async addProductToCart(id, pid){
         try{
             const cartId = await cartModel.findById(id);
+            const product = await productModel.findById(pid)
             if (cartId){
                 const findproduct = cartId.products
                 const productCart = findproduct.findIndex(p=> p.id === product._id)
